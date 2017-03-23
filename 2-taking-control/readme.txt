@@ -1,8 +1,29 @@
-1. Control program
+1. Meet the 'control' program
 
 This is a program of which you will take control in this tutorial.
-
 But first run it and check what it can do:
+
+```
+make
+$ ./control 
+Press Ctrl+C or type end to quit
+Command: help
+	dir - lists the current directory
+	cd [folder] - switches the current directory
+	end - leave the program
+	help - shows this help
+```
+
+Try playing with it.
+
+Can you find a problem in it giving it some unusual input?
+
+2. Fuzzing
+
+Let's try out fuzzing this program.
+
+3. Controlling EIP
+
 
 
 

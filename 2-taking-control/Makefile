@@ -1,4 +1,4 @@
-.PHONY: clean vuln hack protect debug edit fixed
+.PHONY: clean vuln hack protect debug edit check
 
 vuln:
 	gcc -O0 -fno-stack-protector control.c -o control
@@ -6,11 +6,14 @@ vuln:
 clean:
 	rm -rf control
 
-hack:
-	./hack.py | ./control
+fuzz:
+	./fuzz.py | ./control
 
 debug:
 	edb --run control
 
 edit:
 	nano control.c
+
+check:
+	aspell -c readme.txt
