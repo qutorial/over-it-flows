@@ -6,7 +6,7 @@ vuln:
 clean:
 	rm -rf control
 
-fuzz:
+fuzz: vuln
 	./fuzz.py | ./control
 
 debug:

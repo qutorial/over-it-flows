@@ -52,6 +52,7 @@ int main(void) {
 
  for(;;) {
   overflow();
+  sleep(1);
  }
 
  return 0;
