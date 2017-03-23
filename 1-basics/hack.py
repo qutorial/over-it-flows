@@ -1,4 +1,4 @@
 #!/usr/bin/python
 
 #print "root"
-print "A" * 100
+print "A" * 12
