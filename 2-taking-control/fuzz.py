@@ -1,3 +1,3 @@
 #!/usr/bin/python
 
-print "A" * 100
+print "A" * 10
