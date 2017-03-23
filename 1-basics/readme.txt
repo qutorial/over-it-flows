@@ -1,6 +1,6 @@
 Abstract.
 
-This sample demostrates a basic stack overflow and stack protector feature of gcc.
+This sample demonstrates a basic stack overflow and stack protector feature of gcc.
 
 1. The buffer overflow
 
@@ -11,7 +11,7 @@ In the overflow.c we have two adjacent stack variables:
  int pass=0;
 ```
 
-We use then an unsage gets() function to read the password into buffer:
+We use then an unsafe gets() function to read the password into buffer:
 
 ```
  gets(buff);
@@ -86,7 +86,7 @@ Make a break point with F2 after the call to gets().
 
 Track the execution. 
 
-The cannary is saved in the region of memory pointed to by gs register
+The canary is saved in the region of memory pointed to by gs register
 with a certain offset. It is check before int pass is addressed.
 
 These commands perform the check.
@@ -99,7 +99,7 @@ call overflow!__stack_chk_fail@plt
 
 In the Data Dump window follow an expression 'gs', pressing Ctrl+G.
 It will show you the region of memory to which gs register points.
-This region is a thread local segment storing cannaries.
+This region is a thread local segment storing canaries.
 
 
 5. The real fix
@@ -130,7 +130,7 @@ Password please: AAAAAAAAAAAA
 Wrong password
 ```
 
-6. Additional infos and tasks
+6. Additional info and tasks
 
 Storing password in the executable is a bad idea. Storing it in the clear 
 is also a bad idea.
