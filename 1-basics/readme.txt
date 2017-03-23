@@ -80,13 +80,43 @@ make protect
 make debug
 ```
 
-...
+Debugger starts, press F9 to stop at main() function.
+
+Make a break point with F2 after the call to gets().
+
+Track the execution. 
+
+The cannary is saved in the region of memory pointed to by gs register
+with a certain offset. It is check before int pass is addressed.
+
+These commands perform the check.
+
+```
+xor edx, gs:[0x14] 
+je 0x88485aa
+call overflow!__stack_chk_fail@plt
+```
+
+In the Data Dump window follow an expression 'gs', pressing Ctrl+G.
+It will show you the region of memory to which gs register points.
+This region is a thread local segment storing cannaries.
 
 
 5. The real fix
 
 The true problem lies in the use of gets() function as GCC rightfully 
-tells us. Writing beyond the buffer on the stack is made possible by it.
+tells us. 
+
+```
+overflow.c: In function ‘main’:
+overflow.c:11:2: warning: implicit declaration of function ‘gets’ [-Wimplicit-function-declaration]
+  gets(buff);
+  ^~~~
+/tmp/cclOM2So.o: In function `main':
+overflow.c:(.text+0x3b): warning: the `gets' function is dangerous and should not be used.
+```
+
+Writing beyond the buffer on the stack is made possible by it.
 So to fix the problem, the program has to be rewritten to control 
 the write length into the buffer.
 
