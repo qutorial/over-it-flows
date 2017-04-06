@@ -53,14 +53,17 @@ char *string = malloc(maxsize + 1);
 fgets(string, maxsize, f);
 fclose(f);
 string[maxsize] = 0;
-int i = 0;
+
+int i=0;
 for (i=0; i<maxsize; ++i){
- if(isspace(string[i])){
-  string[i]=0;
+if(string[i] == 0x0A || string[i] == 0x0D || (unsigned char) string[i] == (unsigned char) 0xE8){
+  string[i]=0x00;
   break;
- }
 }
+}
+
 return string;
+
 }
 
 int main(void) {

