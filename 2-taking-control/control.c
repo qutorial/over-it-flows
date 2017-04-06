@@ -2,10 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-void overflow(void){
+void action(char * cmd){
   char buff[80];
-  printf("Command: ");
-  gets(buff);
+  strcpy(buff, cmd);
 
   if( !strcmp(buff, "dir") || !strcmp(buff, "ls") ) {
     system("ls -al");
@@ -42,18 +41,30 @@ void overflow(void){
     printf("Good bye!\n");
     exit(0);
   } else {
-    printf("Unknown command\n");
+    printf("Unknown command \"%s\"\n", buff);
   }
 }
 
-int main(void) {
 
- printf("Press Ctrl+C or type end to quit\n");
-
- for(;;) {
-  overflow();
-  sleep(1);
+char * readfile(char * file){
+FILE *f = fopen(file, "rb");
+int maxsize=2000;
+char *string = malloc(maxsize + 1);
+fgets(string, maxsize, f);
+fclose(f);
+string[maxsize] = 0;
+int i = 0;
+for (i=0; i<maxsize; ++i){
+ if(isspace(string[i])){
+  string[i]=0;
+  break;
  }
+}
+return string;
+}
 
+int main(void) {
+ char * string = readfile("input");
+ action(string);
  return 0;
 }

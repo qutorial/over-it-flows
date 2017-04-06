@@ -10,7 +10,7 @@ clean:
 	rm -rf control
 
 fuzz: vuln
-	./fuzz.py | ./control
+	./fuzz.py > input && ./control
 
 debug:
 	edb --run control
