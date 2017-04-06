@@ -20,3 +20,7 @@ edit:
 
 check:
 	aspell -c readme.txt
+
+payload:
+	python payloadgen.py > input
+
