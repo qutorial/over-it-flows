@@ -112,7 +112,7 @@ after EIP's value.
 7. Bad characters
 
 It might be that not every character is processed by the program in the 
-same way. Some might get ingored, changed. Some might serve as 
+same way. Some might get ignored, changed. Some might serve as 
 terminators for the input. We have to figure it out before we 
 insert the shellcode which might suffer from bad characters.
 
