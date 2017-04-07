@@ -4,4 +4,12 @@
 2-taking-control/control
 2-taking-control/input
 
+3-ret-2-libc/classic
+3-ret-2-libc/nx
+3-ret-2-libc/in.txt
+3-ret-2-libc/getenvaddr
+
+
 *.bak
+.gdb_history
+peda-session-*

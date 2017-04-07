@@ -10,7 +10,7 @@ clean:
 	rm -f classic nx
 
 debug:
-	gdb
+	gdb classic
 
 edit:
 	nano classic.c
@@ -20,4 +20,3 @@ check:
 
 payload:
 	python payloadgen.py > in.txt
-
