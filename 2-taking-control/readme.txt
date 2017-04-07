@@ -175,6 +175,9 @@ It should be placed instead of B's in the shell code.
 
 x. Additional info and tasks
 
+What if you run the program outside the debugger, does the exploit still work?
+Why?
+
 What happens if you compile the program with the stack protector?
 Is it still vulnerable? 
 Is the graceful crash caused by canaries a problem?
@@ -183,11 +186,9 @@ What are other vulnerabilities of the program?
 Are they exploitable? Could you exploit them?
 Could you fix these vulnerabilities?
 
-
 What happens if you compile the program without executable 
 stack? Does this exploit work? 
 Is the program still vulnerable?
-
 
 
 
