@@ -1,0 +1,65 @@
+The workshop shall be out of 3 parts.
+
+1) Basic overflow
+A buffer overflow problem is 
+briefly explained. 
+
+We learn how to change the 
+execution flow based on the input in a malicious way.
+
+Mitigations are immediately discussed: stack protector/canaries 
+and the use of safe functions of libc.
+
+Canaries are debugged and explained on assembler level.
+
+The vulnerable program gets fixed finally.
+
+Developers become additional references to secure coding in C.
+
+edb debugger is the tool people learn in this part.
+
+
+
+2) Basic exploit development for buffer overflows.
+
+All the typical steps of exploit development are explained: 
+- fuzzing
+- debugging the crash
+- controlling EIP
+- finding the place for shell code
+- finding out bad chars
+- generating and encoding the shell code
+- exploitation
+
+ASLR is explained and demonstrated at this step,
+ways to overcome it are mentioned but not demonstrated. 
+
+Stack execution protections is discussed, exploitation is 
+attempted in the next step.
+
+Developer learn about simple fuzzing techniques, make the knowledge 
+of EDB stronger, learn about stack execution protection.
+
+New tool is: the metasploit framework, msfvenom.
+
+3) Return-oriented programming
+
+A technique to overcome the stack execution protection is shown.
+Return to libc attack explained, and an exploit is developed for it.
+On the way we show another place to inject the shell code.
+
+Function chaining in ROP is explained, but not demonstrated.
+
+Knowledge of msfvenom is enhanced in this chapter.
+
+The new tools we learn are PEDA for GDB, and GDB.
+
+
+4) The ways to continue are quickly mentioned.
+Heap spraying, use after free, attacks on ASLR and canaries,
+attacks on interpreters. This is as of the exploit-development.
+
+On the product development side we talk more about secure coding,
+need to know of typical mistakes, need to perform security-auditing,
+and the ways to make it cost-efficient. 
+
